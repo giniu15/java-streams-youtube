@@ -35,7 +35,7 @@ public class Main {
                 .sorted(Comparator.comparing(Person::getAge).reversed().thenComparing(Person::getGender))
                 .collect(Collectors.toList());
 //        sorted.forEach(System.out::println);
-        
+
         // All match
         boolean allMatch = people.stream()
                 .allMatch(person -> person.getAge() > 5);
@@ -52,22 +52,29 @@ public class Main {
 
         // Max
         people.stream()
-                .max(Comparator.comparing(Person::getAge))
-                .ifPresent(System.out::println);
+                .max(Comparator.comparing(Person::getAge));
+//                .ifPresent(System.out::println);
 
         // Min
         people.stream()
-                .min(Comparator.comparing(Person::getAge))
-                .ifPresent(System.out::println);
+                .min(Comparator.comparing(Person::getAge));
+//                .ifPresent(System.out::println);
 
         // Group
         Map<Gender, List<Person>> groupBy = people.stream()
                 .collect(Collectors.groupingBy(Person::getGender));
         groupBy.forEach((gender, people1) -> {
-            System.out.println(gender);
-            people.forEach(System.out::println);
-            System.out.println();
+//            System.out.println(gender);
+//            people.forEach(System.out::println);
+//            System.out.println();
         });
+
+        Optional<String> oldestMale = people.stream()
+                .filter(person -> person.getGender().equals(Gender.MALE))
+                .max(Comparator.comparing(Person::getAge))
+                .map(Person::getName);
+        oldestMale.ifPresent(System.out::println);
+
     }
 
     private static List<Person> getPeople() {
