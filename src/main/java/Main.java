@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.Unmodifiable;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -32,9 +34,9 @@ public class Main {
 
         // Sort
         List<Person> sorted = people.stream()
-                .sorted(Comparator.comparing(Person::getAge).reversed().thenComparing(Person::getGender))
+                .sorted(Comparator.comparing(Person::getAge).thenComparing(Person::getGender))
                 .collect(Collectors.toList());
-//        sorted.forEach(System.out::println);
+        sorted.forEach(System.out::println);
 
         // All match
         boolean allMatch = people.stream()
@@ -73,10 +75,11 @@ public class Main {
                 .filter(person -> person.getGender().equals(Gender.MALE))
                 .max(Comparator.comparing(Person::getAge))
                 .map(Person::getName);
-        oldestMale.ifPresent(System.out::println);
+//        oldestMale.ifPresent(System.out::println);
 
     }
 
+    @Unmodifiable
     private static List<Person> getPeople() {
         return List.of(
                 new Person("Antonio", 20, Gender.MALE),
